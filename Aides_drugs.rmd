@@ -50,6 +50,69 @@ myfisher <- fisher.test(tabsexinfected)
 myfisher
 ```
 
+
+
+```{r}
+GenvoyabubM <- filter(Genvoyabub,sex=="M")
+```
+
+```{r}
+myfisher <- fisher.test(tabsexinfected)
+myfisher
+```
+
+```{r}
+tabmales <- xtabs(~infected+group,data=GenvoyabubM)
+tabmales
+barchartGC(tabmales,type = "percent")
+```
+
+```{r}
+colPerc(tabmales)
+```
+
+```{r}
+rowPerc(tabmales)
+```
+
+```{r}
+mygenvo1 <-chisqtestGC(tabmales, graph = TRUE) 
+mygenvo1
+```
+
+```{r}
+myfisher1 <- fisher.test(tabmales)
+myfisher1
+```
+
+```{r}
+GenvoyabubF <- filter(Genvoyabub,sex=="F")
+```
+
+```{r}
+tabfemales <- xtabs(~infected+group,data=GenvoyabubF)
+tabfemales
+barchartGC(tabfemales,type = "percent")
+```
+
+```{r}
+colPerc(tabfemales)
+```
+
+```{r}
+rowPerc(tabfemales)
+```
+
+```{r}
+mygenvo2 <-chisqtestGC(tabfemales, graph = TRUE) 
+mygenvo2
+```
+
+```{r}
+myfisher2 <- fisher.test(tabfemales)
+myfisher2
+```
+
 # Atriplavast
 
 We will subset the data by sex to see if the drug is sex specific.

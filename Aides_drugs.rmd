@@ -153,7 +153,7 @@ myfisher2 <- fisher.test(tabfemales)
 myfisher2
 ```
 
-Again, we get the p-value of 0.5057 from the Fisher's exact test, with a confidence interval of 0.583, 1.278. Therefore, we must accept the null hypothesis.
+Again, we get the p-value of 0.5057 from the Fisher's exact test, with a confidence interval of 0.583, 1.278. Therefore, we will accept the null hypothesis.
 
 # Atriplavast
 

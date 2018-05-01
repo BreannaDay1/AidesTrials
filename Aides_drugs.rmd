@@ -33,7 +33,11 @@ We will subset the data by sex to see if the drug is sex specific.
 # abacavirinol
 
 We will subset the data by sex to see if the drug is sex specific.
-
+```{r}
+tabinfected <- xtabs(~infected+group,data=abacavirinol)
+tabinfected
+barchartGC(tabinfected,type = "percent")
+```
 
 
 

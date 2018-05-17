@@ -27,6 +27,142 @@ We will subset the data by sex to see if the drug is sex specific.
 # Atriplavast
 
 We will subset the data by sex to see if the drug is sex specific.
+```{r}
+sexinfected <- xtabs(~infected+group,data=Atriplavast)
+sexinfected
+barchartGC(sexinfected,type = "percent")
+```
+
+In the barchart we see that there is a slight difference in those that took the placebo and got aids to those that took the drug, but there is not a big enough difference to be alarmed that either causes one to catch aids. We will conduct further test to analyze the placebo and drug.
+
+###Numerical Results
+```{r}
+colPerc(sexinfected)
+```
+
+```{r}
+rowPerc(sexinfected)
+```
+
+From these percents, we see that the individuals and the majority remained negative for the disease independent of whether they received the drug or not. Those who contracted Aids, nearly half received the drug and half received the placebo. These numbers seem to show that in the general population, taking the drug has no effect on whether or not a person gets Aids.
+
+###Inferential Results
+
+Next, we will test the independence of the Atriplavast drug and placebo group using the chi-square test. We will state the null and alternative hypotheses for this test.  
+
+$H_0$: The Atriplavast drug and placebo are independent of contracting Aids.
+
+$H_a$: Taking Atriplavast is related to contracting Aids.
+
+```{r}
+myatrip <-chisqtestGC(sexinfected, graph = TRUE) 
+myatrip
+```
+
+
+```{r}
+myfisher <- fisher.test(sexinfected)
+myfisher
+```
+
+We get the p-value of 0.8942 from the Fisher's exact test, with a confidence interval of 0.743, 1.275. Therefore, we must accept the alternative hypothesis.
+
+```{r}
+AtriplavastM <- filter(atriplavast,sex=="M")
+```
+Now, we must subset our data to see if the drug worked on the males in the study. Next, we make a barchart of the percentage of males who contracted Aids versus those who did not, according to whether they received the drug or the placebo.
+
+```{r}
+tabmales <- xtabs(~infected+group,data=AtriplavastM)
+tabmales
+barchartGC(tabmales,type = "percent")
+```
+
+###Numerical Results
+
+```{r}
+colPerc(tabmales)
+```
+
+```{r}
+rowPerc(tabmales)
+```
+
+The above percentages support our graphical evidence that of the males who contracted the virus, those that took the drug contracted aids more than those that took the placebo.
+
+###Inferential Results
+
+
+Next, we will test the independence of the Atriplavast drug and placebo group within the male population using the chi-square test. We will state the null and alternative hypotheses for this test.  
+
+$H_0$: The Atriplavast drug is independent of contracting Aids among males.
+
+$H_a$: Taking Atriplavast is related to contracting Aids among males.
+```{r}
+myatrip1 <-chisqtestGC(tabmales, graph = TRUE) 
+myatrip1
+```
+
+$H_0$: The odds ratio between contracting Aids and taking Atriplavast contains the number 1.  
++$H_a$: The odds ratio between contracting Aids and taking Atriplavast does not contain the number 1.
+
+```{r}
+myfisher1 <- fisher.test(tabmales)
+myfisher1
+```
+
+Again, we get the p-value of 0.09224 from the Fisher's exact test, with a confidence interval of 0.952, 1.982. Therefore, we must accept the alternative hypothesis.
+
+```{r}
+AtriplavastF <- filter(atriplavast,sex=="F")
+```
+In the female subset, it again appears that the amount of Aids infections are nearly evenly split between those who received the drug and the placebo.
+```{r}
+tabfemales <- xtabs(~infected+group,data=AtriplavastF)
+tabfemales
+barchartGC(tabfemales,type = "percent")
+```
+
+Again, we see that out of the females who contracted Aids, only a handful more received the placebo. This does not appear to indicate that Atriplavast had any effect on the likelihood of females contracting Aids.
+
+###Numerical Results
+
+```{r}
+colPerc(tabfemales)
+```
+
+```{r}
+rowPerc(tabfemales)
+```
+
+The above percentages support our graphical evidence that of the males who contracted the virus, those that took the placebo contracted aids more than those that took the drug.
+
+###Inferential Results
+
+Next, we will test the independence of the Atriplavast drug and placebo group within the female population using the chi-square test. We will state the null and alternative hypotheses for this test.  
+
+$H_0$: The Atriplavast drug is independent of contracting Aids among females.
+
+$H_a$: Taking Atriplavast is related to contracting Aids among females.
+
+```{r}
+myabaca2 <-chisqtestGC(tabfemales, graph = TRUE) 
+myabaca2
+```
+
+$H_0$: The odds ratio between contracting Aids and taking Atriplavast contains the number 1.  
+
++$H_a$: The odds ratio between contracting Aids and taking Atriplavast does not contain the number 1.
+
+```{r}
+myfisher2 <- fisher.test(tabfemales)
+myfisher2
+```
+
+Again, we get the p-value of 0.02596 from the Fisher's exact test, with a confidence interval of 0.403, 0.947. Therefore, we will accept the alternative hypothesis.
+
+
+
 
 
 

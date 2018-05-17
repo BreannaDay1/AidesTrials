@@ -61,34 +61,34 @@ myatrip
 
 
 ```{r}
-myfisher <- fisher.test(sexinfected)
-myfisher
+atfisher <- fisher.test(sexinfected)
+atfisher
 ```
 
-We get the p-value of 0.8942 from the Fisher's exact test, with a confidence interval of 0.743, 1.275. Therefore, we must accept the alternative hypothesis.
+We get the p-value of 0.06971 from the Fisher's exact test, with a confidence interval of  0.589, 1.019. Therefore, we must accept the alternative hypothesis.
 
 ```{r}
-AtriplavastM <- filter(atriplavast,sex=="M")
+AtriplavastM <- filter(Atriplavast,sex=="M")
 ```
 Now, we must subset our data to see if the drug worked on the males in the study. Next, we make a barchart of the percentage of males who contracted Aids versus those who did not, according to whether they received the drug or the placebo.
 
 ```{r}
-tabmales <- xtabs(~infected+group,data=AtriplavastM)
-tabmales
-barchartGC(tabmales,type = "percent")
+atmales <- xtabs(~infected+group,data=AtriplavastM)
+atmales
+barchartGC(atmales,type = "percent")
 ```
 
 ###Numerical Results
 
 ```{r}
-colPerc(tabmales)
+colPerc(atmales)
 ```
 
 ```{r}
-rowPerc(tabmales)
+rowPerc(atmales)
 ```
 
-The above percentages support our graphical evidence that of the males who contracted the virus, those that took the drug contracted aids more than those that took the placebo.
+The above percentages support our graphical evidence that of the males who contracted the virus, those that took the placebo contracted aids more than those that took the drug.
 
 ###Inferential Results
 
@@ -99,28 +99,29 @@ $H_0$: The Atriplavast drug is independent of contracting Aids among males.
 
 $H_a$: Taking Atriplavast is related to contracting Aids among males.
 ```{r}
-myatrip1 <-chisqtestGC(tabmales, graph = TRUE) 
+myatrip1 <-chisqtestGC(atmales, graph = TRUE) 
 myatrip1
 ```
 
-$H_0$: The odds ratio between contracting Aids and taking Atriplavast contains the number 1.  
-+$H_a$: The odds ratio between contracting Aids and taking Atriplavast does not contain the number 1.
+$H_0$: The odds ratio between contracting Aids and taking Atriplavast contains the number 1. 
+
+$H_a$: The odds ratio between contracting Aids and taking Atriplavast does not contain the number 1.
 
 ```{r}
-myfisher1 <- fisher.test(tabmales)
-myfisher1
+atfisher1 <- fisher.test(atmales)
+atfisher1
 ```
 
-Again, we get the p-value of 0.09224 from the Fisher's exact test, with a confidence interval of 0.952, 1.982. Therefore, we must accept the alternative hypothesis.
+Again, we get the p-value of 1.122e-05 from the Fisher's exact test, with a confidence interval of 0.319, 0.661. Therefore, we must accept the null hypothesis.
 
 ```{r}
-AtriplavastF <- filter(atriplavast,sex=="F")
+AtriplavastF <- filter(Atriplavast,sex=="F")
 ```
 In the female subset, it again appears that the amount of Aids infections are nearly evenly split between those who received the drug and the placebo.
 ```{r}
-tabfemales <- xtabs(~infected+group,data=AtriplavastF)
-tabfemales
-barchartGC(tabfemales,type = "percent")
+atfemales <- xtabs(~infected+group,data=AtriplavastF)
+atfemales
+barchartGC(atfemales,type = "percent")
 ```
 
 Again, we see that out of the females who contracted Aids, only a handful more received the placebo. This does not appear to indicate that Atriplavast had any effect on the likelihood of females contracting Aids.
@@ -128,14 +129,14 @@ Again, we see that out of the females who contracted Aids, only a handful more r
 ###Numerical Results
 
 ```{r}
-colPerc(tabfemales)
+colPerc(atfemales)
 ```
 
 ```{r}
-rowPerc(tabfemales)
+rowPerc(atfemales)
 ```
 
-The above percentages support our graphical evidence that of the males who contracted the virus, those that took the placebo contracted aids more than those that took the drug.
+The above percentages support our graphical evidence that of the females who contracted the virus, those that took the drug contracted aids more than those that took the placebo.
 
 ###Inferential Results
 
@@ -146,20 +147,20 @@ $H_0$: The Atriplavast drug is independent of contracting Aids among females.
 $H_a$: Taking Atriplavast is related to contracting Aids among females.
 
 ```{r}
-myabaca2 <-chisqtestGC(tabfemales, graph = TRUE) 
-myabaca2
+myatrip2 <-chisqtestGC(atfemales, graph = TRUE) 
+myatrip2
 ```
 
 $H_0$: The odds ratio between contracting Aids and taking Atriplavast contains the number 1.  
 
-+$H_a$: The odds ratio between contracting Aids and taking Atriplavast does not contain the number 1.
+$H_a$: The odds ratio between contracting Aids and taking Atriplavast does not contain the number 1.
 
 ```{r}
-myfisher2 <- fisher.test(tabfemales)
-myfisher2
+atfisher2 <- fisher.test(atfemales)
+atfisher2
 ```
 
-Again, we get the p-value of 0.02596 from the Fisher's exact test, with a confidence interval of 0.403, 0.947. Therefore, we will accept the alternative hypothesis.
+Again, we get the p-value of 0.006281 from the Fisher's exact test, with a confidence interval of 1.192, 3.204. Therefore, we will accept the alternative hypothesis.
 
 
 

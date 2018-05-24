@@ -22,7 +22,141 @@ Three new preventative aides drugs were tested in clinical trials in 2015. The t
 # Genvoyabub
 
 We will subset the data by sex to see if the drug is sex specific.
+We will subset the data by sex to see if the drug is sex specific.
+```{r}
+tabsexinfected <- xtabs(~infected+group,data=Genvoyabub)
+tabsexinfected
+barchartGC(tabsexinfected,type = "percent")
+```
 
+In the barchart we see that there is a slight difference in those that took the placebo and got aids to those that took the drug, but there is not a big enough difference to be alarmed that either causes one to catch aids. We will conduct further test to analyze the placebo and drug.
+
+###Numerical Results
+```{r}
+colPerc(tabsexinfected)
+```
+
+```{r}
+rowPerc(tabsexinfected)
+```
+
+From these percents, we see that the individuals and the majority remained negative for the disease independent of whether they received the drug or not. Those who contracted Aids, nearly half received the drug and half received the placebo. These numbers seem to show that in the general population, taking the drug has no effect on whether or not a person gets Aids.
+
+###Inferential Results
+
+Next, we will test the independence of the Genvoyabub drug and placebo group using the chi-square test. We will state the null and alternative hypotheses for this test.  
+
+$H_0$: The Genvoyabub drug and placebo are independent of contracting Aids.
+
+$H_a$: Taking Genvoyabub is related to contracting Aids.
+
+```{r}
+mygenvo <-chisqtestGC(tabsexinfected, graph = TRUE) 
+mygenvo
+```
+
+
+```{r}
+myfisher <- fisher.test(tabsexinfected)
+myfisher
+```
+
+Again, we get the p-value of 0.5736 from the Fisher's exact test, with a confidence interval of 0.686, 1.217. Therefore, we must accept the hypothesis.
+
+```{r}
+GenvoyabubM <- filter(Genvoyabub,sex=="M")
+```
+Now, we must subset our data to see if the drug worked on the males in the study. Next, we make a barchart of the percentage of males who contracted Aids versus those who did not, according to whether they received the drug or the placebo.
+
+```{r}
+tabmales <- xtabs(~infected+group,data=GenvoyabubM)
+tabmales
+barchartGC(tabmales,type = "percent")
+```
+
+###Numerical Results
+
+```{r}
+colPerc(tabmales)
+```
+
+```{r}
+rowPerc(tabmales)
+```
+
+The above percentages support our graphical evidence that of the males who contracted the virus, half received the drug and half received the placebo. These results do not indicate that Genvoyabub was effective in the male population.
+
+###Inferential Results
+
+
+Next, we will test the independence of the Genvoyabub drug and placebo group within the male population using the chi-square test. We will state the null and alternative hypotheses for this test.  
+
+$H_0$: The Genvoyabub drug is independent of contracting Aids among males.
+
+$H_a$: Taking Genvoyabub is related to contracting Aids among males.
+```{r}
+mygenvo1 <-chisqtestGC(tabmales, graph = TRUE) 
+mygenvo1
+```
+
+$H_0$: The odds ratio between contracting Aids and taking Genvoyabub contains the number 1.  
+
+$H_a$: The odds ratio between contracting Aids and taking Genvoyabub does not contain the number 1.
+
+```{r}
+myfisher1 <- fisher.test(tabmales)
+myfisher1
+```
+
+Again, we get the p-value of 1 from the Fisher's exact test, with a confidence interval of 0.634, 1.507. Therefore, we must accept the hypothesis.
+
+```{r}
+GenvoyabubF <- filter(Genvoyabub,sex=="F")
+```
+In the female subset, it again appears that the amount of Aids infections are nearly evenly split between those who received the drug and the placebo.
+```{r}
+tabfemales <- xtabs(~infected+group,data=GenvoyabubF)
+tabfemales
+barchartGC(tabfemales,type = "percent")
+```
+
+Again, we see that out of the females who contracted Aids, only a handful more received the placebo. This does not appear to indicate that Genvoyabub had any effect on the likelihood of females contracting Aids.
+
+###Numerical Results
+
+```{r}
+colPerc(tabfemales)
+```
+
+```{r}
+rowPerc(tabfemales)
+```
+
+The above percentages support our graphical evidence that of the females who contracted the virus, half received the drug and half received the placebo. These results do not indicate that Genvoyabub was effective in the female population.
+
+###Inferential Results
+
+Next, we will test the independence of the Genvoyabub drug and placebo group within the female population using the chi-square test. We will state the null and alternative hypotheses for this test.  
+
+$H_0$: The Genvoyabub drug is independent of contracting Aids among females.
+
+$H_a$: Taking Genvoyabub is related to contracting Aids among females.
+
+```{r}
+mygenvo2 <-chisqtestGC(tabfemales, graph = TRUE) 
+mygenvo2
+```
+
+$H_0$: The odds ratio between contracting Aids and taking Genvoyabub contains the number 1.  
+
+$H_a$: The odds ratio between contracting Aids and taking Genvoyabub does not contain the number 1.
+
+```{r}
+myfisher2 <- fisher.test(tabfemales)
+myfisher2
+```
+
+Again, we get the p-value of 0.5057 from the Fisher's exact test, with a confidence interval of 0.583, 1.278. Therefore, we will accept the null hypothesis.
 
 # Atriplavast
 
